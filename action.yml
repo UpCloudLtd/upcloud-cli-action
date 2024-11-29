@@ -1,0 +1,19 @@
+name: 'UpCloud CLI for Github Actions'
+description: 'Installs and configures the UpCloud command-line tool (upctl) for managing UpCloud infrastructure in GitHub Actions.'
+author: 'UpCloud'
+branding:
+  icon: 'cloud'
+  color: 'purple'
+inputs:
+  version:
+    description: 'UpCloud CLI version to install'
+    default: 'latest'
+  username:
+    description: 'UpCloud API Username'
+    required: true
+  password:
+    description: 'UpCloud API Password'
+    required: true
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
