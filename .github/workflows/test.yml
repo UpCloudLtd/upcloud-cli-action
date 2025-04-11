@@ -1,4 +1,4 @@
-name: Test Action
+name: Test
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    name: Test Action
+    name: Lint, build, and use
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +27,12 @@ jobs:
         
       - name: Build action
         run: npm run package
-        
+
+      - name: Check dist directory is up-to-date
+        run: |
+          git diff --compact-summary --exit-code || \
+            (echo; echo "Unexpected difference in directories after build. Run 'npm run package' command and commit."; exit 1)
+
       - name: Test action execution
         uses: ./
         with:
