@@ -1,11 +1,11 @@
 {
   "name": "upcloud-cli-action",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "GitHub Action for UpCloud CLI",
   "main": "main.js",
   "dependencies": {
     "@actions/core": "^1.11.1",
-    "@actions/exec": "^1.1.1", 
+    "@actions/exec": "^1.1.1",
     "@actions/tool-cache": "^2.0.1",
     "@octokit/rest": "^21.0.2"
   },
@@ -38,4 +38,4 @@
     "url": "https://github.com/UpCloudLtd/upcloud-cli-action/issues"
   },
   "homepage": "https://github.com/UpCloudLtd/upcloud-cli-action"
-} 
+}
