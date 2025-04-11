@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup UpCloud CLI
-        uses: upcloudltd/upcloud-cli-action@v1
+        uses: upcloudltd/upcloud-cli-action@main
         with:
           username: ${{ secrets.UPCLOUD_USERNAME }}
           password: ${{ secrets.UPCLOUD_PASSWORD }}
@@ -60,7 +60,7 @@ Store your UpCloud API credentials as GitHub secrets:
 ```yaml
 steps:
   - name: Setup UpCloud CLI
-    uses: upcloudltd/upcloud-cli-action@v1
+    uses: upcloudltd/upcloud-cli-action@main
     with:
       username: ${{ secrets.UPCLOUD_USERNAME }}
       password: ${{ secrets.UPCLOUD_PASSWORD }}
@@ -84,11 +84,11 @@ steps:
 ```yaml
 steps:
   - name: Setup UpCloud CLI
-    uses: upcloudltd/upcloud-cli-action@v1
+    uses: upcloudltd/upcloud-cli-action@main
     with:
       username: ${{ secrets.UPCLOUD_USERNAME }}
       password: ${{ secrets.UPCLOUD_PASSWORD }}
-      version: '2.0.0'  # Specify a version
+      version: '3.19.0'  # Specify a version
 ```
 
 ## License
