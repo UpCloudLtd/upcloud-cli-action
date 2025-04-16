@@ -65,12 +65,22 @@ async function downloadCLI(version, platform, arch) {
     core.info(`⬇️ Downloading UpCloud CLI from ${downloadUrl}`);
     
     const downloadPath = await tc.downloadTool(downloadUrl);
+    if (false) { // TODO if >= v3.16.0
+      core.info('🔍 Verifying download');
+      await verifyDownload(downloadPath);
+    }
+
     return mappedPlatform === 'windows' 
       ? await tc.extractZip(downloadPath)
       : await tc.extractTar(downloadPath);
   } catch (error) {
     throw new Error(`Unable to download UpCloud CLI: ${error.message}`);
   }
+}
+
+// Verifies the download
+async function verifyDownload(downloadPath) {
+  await exec.exec('gh', ['attestation', 'verify', downloadPath, '--repo', 'UpCloudLtd/upcloud-cli']);
 }
 
 // Builds the download URL for the UpCloud CLI binary
