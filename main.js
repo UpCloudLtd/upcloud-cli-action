@@ -100,9 +100,9 @@ async function configureAuthentication() {
   core.exportVariable("UPCLOUD_TOKEN", token);
 
   // Use platform-specific command
-  const command = process.platform === "win32" ? "upctl.exe" : "upctl";
-  await exec.exec(`${command} account show`, [], { silent: true });
-  core.info("✓ UpCloud CLI authentication verified successfully");
+  const command = process.platform === 'win32' ? 'upctl.exe' : 'upctl';
+  await exec.exec(command, ['account', 'show'], { silent: true });
+  core.info('UpCloud CLI authentication verified successfully');
 }
 
 // Main function to run the action
