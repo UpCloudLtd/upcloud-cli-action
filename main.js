@@ -94,7 +94,7 @@ async function configureAuthentication() {
 
   // Use platform-specific command
   const command = process.platform === 'win32' ? 'upctl.exe' : 'upctl';
-  await exec.exec(`${command} account show`, [], { silent: true });
+  await exec.exec(command, ['account', 'show'], { silent: true });
   core.info('✓ UpCloud CLI authentication verified successfully');
 }
 
