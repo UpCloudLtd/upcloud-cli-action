@@ -38,12 +38,13 @@ jobs:
 
 ### Inputs
 
-| Input      | Description                    | Required | Default  |
-| ---------- | ------------------------------ | -------- | -------- |
-| `username` | UpCloud API Username           | No       | -        |
-| `password` | UpCloud API Password           | No       | -        |
-| `token`    | UpCloud API Token              | No       | -        |
-| `version`  | UpCloud CLI version to install | No       | `latest` |
+| Input                | Description                                        | Required | Default  |
+| -------------------- | -------------------------------------------------- | -------- | -------- |
+| `username`           | UpCloud API Username                               | No       | -        |
+| `password`           | UpCloud API Password                               | No       | -        |
+| `token`              | UpCloud API Token                                  | No       | -        |
+| `version`            | UpCloud CLI version to install                     | No       | `latest` |
+| `verify-attestation` | Whether to verify UpCloud CLI artifact attestation | No       | true     |
 
 Define either `token` or `username` and `password` to configure authentication.
 
