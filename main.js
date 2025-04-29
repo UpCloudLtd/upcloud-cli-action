@@ -42,7 +42,7 @@ async function setupCLI(version) {
     const installPath = await downloadCLI(
       version,
       process.platform,
-      process.arch,
+      process.arch
     );
 
     // Ensure binary exists and is in the expected location
@@ -55,7 +55,7 @@ async function setupCLI(version) {
     toolPath = await tc.cacheDir(installPath, toolName, version);
   }
   core.addPath(toolPath);
-  core.info(`✓ UpCloud CLI version v${version} installed to ${toolPath}`);
+  core.info(`UpCloud CLI version v${version} installed to ${toolPath}`);
   return toolPath;
 }
 
@@ -66,7 +66,7 @@ async function downloadCLI(version, platform, arch) {
     const mappedArch = ARCHITECTURES[arch] ?? arch;
 
     const downloadUrl = buildDownloadUrl(version, mappedPlatform, mappedArch);
-    core.info(`⬇️ Downloading UpCloud CLI from ${downloadUrl}`);
+    core.info(`Downloading UpCloud CLI from ${downloadUrl}`);
 
     const downloadPath = await tc.downloadTool(downloadUrl);
     return mappedPlatform === "windows"
@@ -90,14 +90,28 @@ async function configureAuthentication() {
   const token = core.getInput("token");
 
   // Mask sensitive values in logs
-  core.setSecret(username);
-  core.setSecret(password);
-  core.setSecret(token);
+  [username, password, token].forEach((i) => {
+    if (i) {
+      core.setSecret(i);
+    }
+  });
 
-  // Set environment variables for authentication
-  core.exportVariable("UPCLOUD_USERNAME", username);
-  core.exportVariable("UPCLOUD_PASSWORD", password);
-  core.exportVariable("UPCLOUD_TOKEN", token);
+  // Validate that either token or username and password are provided
+  if ((!username || !password) && !token) {
+    throw new Error(
+      "Either token or username and password must be configured."
+    );
+  }
+
+  if (token) {
+    core.exportVariable("UPCLOUD_TOKEN", token);
+    if (username || password) {
+      core.warn("Username and password are ignored when using a token.");
+    }
+  } else if (username && password) {
+    core.exportVariable("UPCLOUD_USERNAME", username);
+    core.exportVariable("UPCLOUD_PASSWORD", password);
+  }
 
   // Use platform-specific command
   const command = process.platform === 'win32' ? 'upctl.exe' : 'upctl';
