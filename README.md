@@ -30,8 +30,7 @@ jobs:
       - name: Setup UpCloud CLI
         uses: upcloudltd/upcloud-cli-action@main
         with:
-          username: ${{ secrets.UPCLOUD_USERNAME }}
-          password: ${{ secrets.UPCLOUD_PASSWORD }}
+          token: ${{ secrets.UPCLOUD_TOKEN }}
 
       - name: List UpCloud servers
         run: upctl server list
