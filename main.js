@@ -42,7 +42,7 @@ async function setupCLI(version) {
     const installPath = await downloadCLI(
       version,
       process.platform,
-      process.arch
+      process.arch,
     );
 
     // Ensure binary exists and is in the expected location
@@ -99,7 +99,7 @@ async function configureAuthentication() {
   // Validate that either token or username and password are provided
   if ((!username || !password) && !token) {
     throw new Error(
-      "Either token or username and password must be configured."
+      "Either token or username and password must be configured.",
     );
   }
 
@@ -114,9 +114,9 @@ async function configureAuthentication() {
   }
 
   // Use platform-specific command
-  const command = process.platform === 'win32' ? 'upctl.exe' : 'upctl';
-  await exec.exec(command, ['account', 'show'], { silent: true });
-  core.info('UpCloud CLI authentication verified successfully');
+  const command = process.platform === "win32" ? "upctl.exe" : "upctl";
+  await exec.exec(command, ["account", "show"], { silent: true });
+  core.info("UpCloud CLI authentication verified successfully");
 }
 
 // Main function to run the action
