@@ -18,7 +18,7 @@ name: Deploy to UpCloud
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
@@ -30,8 +30,7 @@ jobs:
       - name: Setup UpCloud CLI
         uses: upcloudltd/upcloud-cli-action@main
         with:
-          username: ${{ secrets.UPCLOUD_USERNAME }}
-          password: ${{ secrets.UPCLOUD_PASSWORD }}
+          token: ${{ secrets.UPCLOUD_TOKEN }}
 
       - name: List UpCloud servers
         run: upctl server list
@@ -39,11 +38,14 @@ jobs:
 
 ### Inputs
 
-| Input      | Description                       | Required | Default  |
-|------------|-----------------------------------|----------|----------|
-| `username` | UpCloud API Username              | Yes      | -        |
-| `password` | UpCloud API Password              | Yes      | -        |
-| `version`  | UpCloud CLI version to install    | No       | `latest` |
+| Input      | Description                    | Required | Default  |
+| ---------- | ------------------------------ | -------- | -------- |
+| `username` | UpCloud API Username           | No       | -        |
+| `password` | UpCloud API Password           | No       | -        |
+| `token`    | UpCloud API Token              | No       | -        |
+| `version`  | UpCloud CLI version to install | No       | `latest` |
+
+Define either `token` or `username` and `password` to configure authentication.
 
 ## Authentication
 
@@ -88,7 +90,7 @@ steps:
     with:
       username: ${{ secrets.UPCLOUD_USERNAME }}
       password: ${{ secrets.UPCLOUD_PASSWORD }}
-      version: '3.19.0'  # Specify a version
+      version: "3.19.0" # Specify a version
 ```
 
 ## License

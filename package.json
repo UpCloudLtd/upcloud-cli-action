@@ -7,15 +7,16 @@
     "@actions/core": "^1.11.1",
     "@actions/exec": "^1.1.1",
     "@actions/tool-cache": "^2.0.1",
-    "@octokit/rest": "^21.0.2"
+    "@octokit/rest": "^21.0.2",
+    "prettier": "^3.5.3"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.3",
     "eslint": "^9.15.0"
   },
   "scripts": {
-    "lint": "eslint 'main.js'",
-    "lint-fix": "eslint 'main.js' --fix",
+    "lint": "eslint '*.{js,mjs}' && prettier . --check",
+    "lint-fix": "eslint '*.{js,mjs}' --fix && prettier . --write",
     "test": "npm ci && npm run lint",
     "package": "ncc build main.js -o dist --minify"
   },

@@ -2,9 +2,9 @@ name: Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
@@ -12,19 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          
+          node-version: "20"
+          cache: "npm"
+
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Run linting
         run: npm run lint
-        
+
       - name: Build action
         run: npm run package
 
@@ -33,9 +33,15 @@ jobs:
           git diff --compact-summary --exit-code || \
             (echo; echo "Unexpected difference in directories after build. Run 'npm run package' command and commit."; exit 1)
 
-      - name: Test action execution
+      - name: Test action with username and password
         uses: ./
         with:
           username: ${{ secrets.UPCLOUD_USERNAME }}
           password: ${{ secrets.UPCLOUD_PASSWORD }}
-          version: 'latest'
+          version: "latest"
+
+      - name: Test action with token
+        uses: ./
+        with:
+          token: ${{ secrets.UPCLOUD_TOKEN }}
+          version: "latest"
