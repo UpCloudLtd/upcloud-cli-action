@@ -14,6 +14,9 @@ inputs:
     description: "UpCloud API Password"
   token:
     description: "UpCloud API Token. If set, username and password are ignored."
+  verify-attestation:
+    description: "Whether to verify the artifact attestation of the downloaded upctl during install."
+    default: true
 runs:
   using: "node20"
   main: "dist/index.js"
