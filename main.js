@@ -71,7 +71,7 @@ async function downloadCLI(version, platform, arch) {
     const downloadPath = await tc.downloadTool(downloadUrl);
     if (process.env.GH_TOKEN) {
       try {
-        await verifyDownloadAttestation(downloadPath);
+        await verifyDownloadAttestation(downloadPath, version);
       } catch {
         throw new Error("Verifying UpCloud CLI artifact attestation failed");
       }
@@ -87,13 +87,17 @@ async function downloadCLI(version, platform, arch) {
 }
 
 // Verifies the download attestation
-async function verifyDownloadAttestation(downloadPath) {
+async function verifyDownloadAttestation(downloadPath, version) {
   await exec.exec("gh", [
     "attestation",
     "verify",
     downloadPath,
     "--repo",
     "UpCloudLtd/upcloud-cli",
+    "--signer-workflow",
+    "UpCloudLtd/upcloud-cli/.github/workflows/publish.yml",
+    "--source-ref",
+    `refs/tags/v${version}`,
   ]);
 }
 
