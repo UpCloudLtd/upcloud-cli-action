@@ -31,6 +31,8 @@ jobs:
         uses: upcloudltd/upcloud-cli-action@main
         with:
           token: ${{ secrets.UPCLOUD_TOKEN }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: List UpCloud servers
         run: upctl server list
@@ -46,6 +48,13 @@ jobs:
 | `version`  | UpCloud CLI version to install | No       | `latest` |
 
 Define either `token` or `username` and `password` to configure authentication.
+
+### Environment
+
+If the `GH_TOKEN` environment variable is set to a non-empty value,
+downloads are verified against
+[their artifact attestations](https://github.com/UpCloudLtd/upcloud-cli/attestations)
+using the [`gh`](https://cli.github.com) tool.
 
 ## Authentication
 
