@@ -69,7 +69,7 @@ async function downloadCLI(version, platform, arch) {
     core.info(`Downloading UpCloud CLI from ${downloadUrl}`);
 
     const downloadPath = await tc.downloadTool(downloadUrl);
-    if (core.getBooleanInput("verify-attestation")) {
+    if (process.env.GH_TOKEN) {
       try {
         await verifyDownloadAttestation(downloadPath);
       } catch {
