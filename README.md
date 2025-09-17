@@ -1,5 +1,7 @@
 # UpCloud CLI for GitHub Actions
 
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/UpCloudLtd/upcloud-cli-action/badge)](https://scorecard.dev/viewer/?uri=github.com%2FUpCloudLtd%2Fupcloud-cli-action)
+
 A GitHub Action that installs and configures the [UpCloud CLI](https://github.com/UpCloudLtd/upcloud-cli) (`upctl`) for managing UpCloud infrastructure in your GitHub Actions workflows.
 
 ## Features
