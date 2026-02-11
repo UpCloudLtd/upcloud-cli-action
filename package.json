@@ -4,9 +4,9 @@
   "description": "GitHub Action for UpCloud CLI",
   "main": "main.js",
   "dependencies": {
-    "@actions/core": "^1.11.1",
+    "@actions/core": "^2.0.0",
     "@actions/exec": "^1.1.1",
-    "@actions/tool-cache": "^2.0.2",
+    "@actions/tool-cache": "^3.0.0",
     "@octokit/rest": "^21.1.1",
     "prettier": "^3.5.3"
   },
