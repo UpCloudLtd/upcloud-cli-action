@@ -95,7 +95,8 @@ async function verifyDownloadAttestation(downloadPath, version) {
     "--repo",
     "UpCloudLtd/upcloud-cli",
     "--signer-workflow",
-    "UpCloudLtd/upcloud-cli/.github/workflows/publish.yml",
+    // legacy, upcloud-cli/.github/workflows/publish.yml for < 3.31.0
+    "UpCloudLtd/(workflows/\\.github/workflows/build-provenance\\.yaml|upcloud-cli/\\.github/workflows/publish\\.yml)@",
     "--source-ref",
     `refs/tags/v${version}`,
   ]);
