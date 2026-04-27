@@ -1,9 +1,9 @@
-const core = require("@actions/core");
-const tc = require("@actions/tool-cache");
-const exec = require("@actions/exec");
-const { Octokit } = require("@octokit/rest");
-const path = require("path");
-const fs = require("fs");
+const core = import("@actions/core");
+const tc = import("@actions/tool-cache");
+const exec = import("@actions/exec");
+const { Octokit } = import("@octokit/rest");
+const path = import("path");
+const fs = import("fs");
 
 const PLATFORMS = {
   win32: "windows",
@@ -82,7 +82,9 @@ async function downloadCLI(version, platform, arch) {
       ? await tc.extractZip(downloadPath)
       : await tc.extractTar(downloadPath);
   } catch (error) {
-    throw new Error(`Unable to download UpCloud CLI: ${error.message}`);
+    throw new Error(`Unable to download UpCloud CLI: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 

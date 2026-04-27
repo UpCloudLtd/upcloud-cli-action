@@ -15,5 +15,5 @@ inputs:
   token:
     description: "UpCloud API Token. If set, username and password are ignored."
 runs:
-  using: "node20"
+  using: "node24"
   main: "dist/index.js"
