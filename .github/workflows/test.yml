@@ -8,6 +8,11 @@ on:
 
 jobs:
   test:
+    strategy:
+      fail-fast: false
+      matrix:
+        verify_attestation: [true, false]
+
     name: Lint, build, and use
     runs-on: ubuntu-latest
     steps:
@@ -39,9 +44,14 @@ jobs:
           username: ${{ secrets.UPCLOUD_USERNAME }}
           password: ${{ secrets.UPCLOUD_PASSWORD }}
           version: "latest"
+        env:
+          GH_TOKEN: ${{ matrix.verify_attestation && secrets.GITHUB_TOKEN || '' }}
 
+      # This should use tool cache, so downloading binary and verifying attestation are skipped.
       - name: Test action with token
         uses: ./
         with:
           token: ${{ secrets.UPCLOUD_TOKEN }}
           version: "latest"
+        env:
+          GH_TOKEN: "invalid-token"
