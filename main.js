@@ -88,10 +88,11 @@ async function downloadCLI(version, platform, arch) {
 
 // Returns the workflow that signed the attestation of the given version
 function getSignerWorkflow(version) {
+  // With 'latest', the values are [NaN, undefined] and isLegacy is false
   const [major, minor] = version.split(/[.-]/).map(Number);
   const isLegacy = major < 3 || (major === 3 && minor < 31);
 
-  // Versions before 3.31.0 were published with the workflow in the upcloud-cli repository
+  // Versions before 3.31.0 were attested with the workflow in the upcloud-cli repository
   return isLegacy
     ? "UpCloudLtd/upcloud-cli/.github/workflows/publish.yml"
     : "UpCloudLtd/workflows/.github/workflows/build-provenance.yaml";
