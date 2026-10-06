@@ -86,6 +86,17 @@ async function downloadCLI(version, platform, arch) {
   }
 }
 
+// Returns the workflow that signed the attestation of the given version
+function getSignerWorkflow(version) {
+  const [major, minor] = version.split(/[.-]/).map(Number);
+  const isLegacy = major < 3 || (major === 3 && minor < 31);
+
+  // Versions before 3.31.0 were published with the workflow in the upcloud-cli repository
+  return isLegacy
+    ? "UpCloudLtd/upcloud-cli/.github/workflows/publish.yml"
+    : "UpCloudLtd/workflows/.github/workflows/build-provenance.yaml";
+}
+
 // Verifies the download attestation
 async function verifyDownloadAttestation(downloadPath, version) {
   await exec.exec("gh", [
@@ -95,8 +106,7 @@ async function verifyDownloadAttestation(downloadPath, version) {
     "--repo",
     "UpCloudLtd/upcloud-cli",
     "--signer-workflow",
-    // legacy, upcloud-cli/.github/workflows/publish.yml for < 3.31.0
-    "UpCloudLtd/(workflows/.github/workflows/build-provenance.yaml|upcloud-cli/.github/workflows/publish.yml)@",
+    getSignerWorkflow(version),
     "--source-ref",
     `refs/tags/v${version}`,
   ]);

@@ -8,12 +8,20 @@ on:
 
 jobs:
   test:
+    name: Lint, build, and use (${{ matrix.version }}${{ matrix.verify_attestation && ', verify attestation' || '' }})
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
-        verify_attestation: [true, false]
+        verify_attestation:
+          - true
+        version:
+          - latest
+          - "3.30.0"
+          - "3.31.0"
+        include:
+          - verify_attestation: false
+            version: "latest"
 
-    name: Lint, build, and use
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -43,7 +51,7 @@ jobs:
         with:
           username: ${{ secrets.UPCLOUD_USERNAME }}
           password: ${{ secrets.UPCLOUD_PASSWORD }}
-          version: "latest"
+          version: ${{ matrix.version }}
         env:
           GH_TOKEN: ${{ matrix.verify_attestation && secrets.GITHUB_TOKEN || '' }}
 
@@ -52,6 +60,6 @@ jobs:
         uses: ./
         with:
           token: ${{ secrets.UPCLOUD_TOKEN }}
-          version: "latest"
+          version: ${{ matrix.version }}
         env:
           GH_TOKEN: "invalid-token"
