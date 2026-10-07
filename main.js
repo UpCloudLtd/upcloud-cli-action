@@ -82,7 +82,9 @@ async function downloadCLI(version, platform, arch) {
       ? await tc.extractZip(downloadPath)
       : await tc.extractTar(downloadPath);
   } catch (error) {
-    throw new Error(`Unable to download UpCloud CLI: ${error.message}`);
+    throw new Error(`Unable to download UpCloud CLI: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
