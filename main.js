@@ -1,9 +1,9 @@
-const core = require("@actions/core");
-const tc = require("@actions/tool-cache");
-const exec = require("@actions/exec");
-const { Octokit } = require("@octokit/rest");
-const path = require("path");
-const fs = require("fs");
+import * as core from "@actions/core";
+import * as tc from "@actions/tool-cache";
+import * as exec from "@actions/exec";
+import { Octokit } from "@octokit/rest";
+import * as path from "path";
+import * as fs from "fs";
 
 const PLATFORMS = {
   win32: "windows",
